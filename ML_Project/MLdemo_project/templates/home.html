@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% block body %}
+{% load static %}
+<body style="background-color:#EAE4FC;"><br><br>
+<h1><b><center><i>School Store Form</i></center></b></h1><br><br>
+ <div class="container">
+  <div class="card body">
+    <br/>
+      <b>
+    <form method="post" id="indexForm" data-courses-url="{% url 'MLapp:ajax_load_courses' %}">
+      {% csrf_token %}
+        <div class="row">
+           <div class="col">
+              <input type="text" name="fname" placeholder="Enter Your name" class="form-control"><br><br>
+           </div>
+            <div class="col">
+              <input type="date" name="dob" placeholder="Enter Your Date Of Birth" class="form-control"><br><br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                 <input type="number" name="age" placeholder="Enter Your Age" class="form-control"><br><br>
+            </div>
+            <div class="col">
+              Select Your Gender<br><br>
+                <input type="radio" id="male" name="gender" value="HTML">
+                 <label for="male">Male</label>&nbsp;
+                 <input type="radio" id="female" name="gender" value="CSS">
+                 <label for="female">Female</label><br><br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <input type="text" name="phone" placeholder="Enter Your Phone Number" class="form-control"><br><br>
+            </div>
+            <div class="col">
+                <input type="email" name="email" placeholder="Enter Your Email ID" class="form-control"><br><br>
+            </div>
+        </div>
+          <textarea name="address" placeholder="Enter Your address" class="form-control"></textarea><br><br>
+        <div class="row">
+           <div class="col">
+              &nbsp;&nbsp;<label>&nbsp;Department </label>
+               <select name="programming" id="programming" class="form-control">
+                  <option value="">.....select Department...</option>
+                        {% for i in program %}
+                             <option value="{{i.id}}">{{i.name}}</option>
+                        {% endfor %}
+               </select>
+           </div>
+           <div class="col">
+             <label>&nbsp;&nbsp;Course</label>
+              <select name="courses" id="courses" class="form-control"></select><br>
+           </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="nav-item dropdown">
+                    &nbsp;&nbsp;<label>&nbsp;Purpose</label>   <br>
+                       <select name="purpose" class="form-control">
+                          <div class="dropdown-menu fade-up m-0">
+                             <option value="">.....select Purpose...</option>
+                               <option>Enquiry</option>
+                                 <option>Place Order</option>
+                                  <option>Return</option>
+                          </div>
+                       </select>
+                </div>
+            </div>
+            <div class="col">
+                <label>Materials </label><br><br>
+                   <input type="checkbox"  id="NoteBook" name="materials" value="NoteBook">
+                <label>Note Book</label>
+                  &nbsp;  <input type="checkbox"  id="Pen" name="materials" value="Pen">
+                <label>Pen</label><br>
+                   <input type="checkbox"  id="Pencil" name="materials" value="Pencil">
+                <label>Pencil</label>
+                   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="checkbox"  id="examPeppers" name="materials" value="examPeppers">
+                <label>Exam Peppers</label><br><br>
+            </div>
+        </div>
+        <div class="text-center" ><br>
+            <a class="btn btn-success btn-lg" href="{% url 'MLapp:submit'%}">Submit</a>
+            &nbsp;<a href="/credentials/logout" class= "btn btn-warning  btn-lg" >Logout</a></li>
+        </div><br>
+    </form>
+      </b>
+  </div>
+ </div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $("#programming").change(function () {
+        var url = $("#indexForm").attr("data-courses-url");
+        var programmingId = $(this).val();
+
+        $.ajax({
+            url: url,
+            data: {
+                'programming': programmingId
+            },
+            success: function (data) {
+                $("#courses").html(data);
+
+            }
+        });
+
+    });
+</script>
+
+{% endblock %}

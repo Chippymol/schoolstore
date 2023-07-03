@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block body %}
+{% load static %}
+<body style="background-color:#EAE4FC;"><br><br>
+<center><h1><b><i>Registration Form</i></b></h1></center><br><br><br>
+ <div class="container">
+   <div class="row">
+     <div class="col">
+       <div class="tab-pane" id="Registration">
+         <form role="form" class="form-horizontal" action="register" method="post">
+             {% csrf_token %}
+             <div class="form-group">
+                <div class="col-sm-12">
+                   <input class="form-control" name="user_name" placeholder="UserName" type="text">
+                </div>
+             </div>
+             <div class="form-group">
+                <div class="col-sm-12">
+                   <input class="form-control" name="Pass" placeholder="Password" type="password">
+                </div>
+             </div>
+             <div class="form-group">
+               <div class="col-sm-12">
+                 <input class="form-control" name="con_pass" placeholder="Confirm Password" type="password">
+               </div>
+             </div><br><br>
+             <div class="row">
+                <div class="col-sm-10">
+                  <center> <input type="submit" class="btn btn-success btn-lg">
+                    <a class="btn btn-primary btn-lg" href="{% url 'MLapp:demo'%}">Cancel</a></center>
+                </div>
+             </div>
+         </div>
+       </form>
+         {% for mesg in messages %}
+            <center><h1>{{mesg}}</h1></center>
+         {% endfor %}
+     </div>
+   <div class="col">
+     <img class="img-fluid" src="{% static 'img/login2.jpg'%}" width="150%" alt="">
+
+   </div>
+ </div>
+ </div>
+
+
+{% endblock %}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<h1><b><center>School Registration Form</center></b></h1>
+
+  <div class="container">
+  <div class="card body">
+    <br/>
+    <br/>
+    <br/>
+    <form action="submit" method="post">
+        {% csrf_token %}
+    <div class="row">
+    <div class="col-md-5">
+         <input type="text" name="fname" placeholder="Enter Your name" class="form-control"><br><br>
+        <input type="date" name="dob" placeholder="Enter Your Date Of Birth" class="form-control"><br><br>
+        <input type="number" name="age" placeholder="Enter Your Age" class="form-control"><br><br>
+        Select Your Gender<br>
+        <input type="radio"  id="1"  name="male" value="Male">
+        <label >Male</label><br>
+        <input type="radio" id="2" name="female" value="FeMale">
+        <label >FeMale</label><br><br>
+        <input type="text" name="phone" placeholder="Enter Your Phone numebr" class="form-control"><br><br>
+        <input type="email" name="email" placeholder="Enter Your Email ID" class="form-control"><br><br>
+         <textarea name="address" placeholder="Enter Your address" class="form-control"></textarea><br><br>
+        <select name="department"  class="form-control">
+            <option value="0">--Select Department--</option>
+            {% for item in department  %}
+            <option value="{{ item.id }}">{{ item.departmentname }}</option>
+            {% endfor %}
+        </select>
+    <br>
+       <select name="emp" id="Employee" class="form-control">
+            <option value="0">--Select Staff--</option>
+            {% for item in course  %}
+            <option value="0">--Select Staff--</option>
+            <option value="{{ item.deptid }}">{{ item.cname }}</option>
+            {% endfor %}
+        </select><br>
+         <div class="nav-item dropdown">
+                    purpose
+             <select name="purpose" class="form-control">
+             <div class="dropdown-menu fade-up m-0">
+                        <option>Enquiry</option>
+                        <option>Place Order</option>
+                        <option>Return</option>
+
+             </select>
+         </div>
+        <div>
+            <input type="checkbox"  id="NoteBook" name="materials" value="NoteBook">
+                <label>Note Book</label><br>
+                   <input type="checkbox"  id="Pen" name="materials" value="Pen">
+                <label>Pen</label><br>
+                   <input type="checkbox"  id="Pencil" name="materials" value="Pencil">
+                <label>Pencil</label><br>
+                   <input type="checkbox"  id="examPeppers" name="materials" value="examPeppers">
+                <label>Exam Peppers</label><br>
+
+        </div>
+          <a class="btn btn-primary" href="{% url 'MLapp:submit'%}">submit</a>
+
+
+    </div>
+   </div>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+<script>
+
+$(document).ready(function(){
+
+ var department = $("#department");
+ var course = $("#Course");
+ var $options = Course.find('option');
+ department.on('change',function(){
+    form.html($options.filter('[value="'+ this.value  +'"]'));
+ }).trigger('change');
+
+
+});
+</script>
+</script>
+</body>
+</html>
